@@ -41,9 +41,24 @@
             </div>
         </div>
         <div class="p-2">
-            <div id="kittens" class="d-flex align-items-center flex-wrap">
+            <div id="kittens" class="d-flex align-items-center flex-wrap hidden">
+                <div class="kitten angry">
+                    <div class="card p-2 text-center w-50">
+                        <img src="moody-logo.png" alt="angry kitten">
+                        <br>
+                        <button onclick="pet(id)">Pet</button>
+                    </div>
+                </div>
+                <div class="kitten happy">
+                    <div class="card p-2 text-center w-50">
+                        <img src="moody-logo.png" alt="happy kitten">
+                        <br>
+                        <button onclick="catnip(id)">Give Catnip</button>
+                    </div>
+                </div>
             </div>
         </div>
+
     </main>
     <footer class="card bg-dark text-light p-2 d-flex align-items-center justify-content-center">
         <small>Created with <span style="color: var(--primary)">&hearts;</span> by CodeWorks</small>

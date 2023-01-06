@@ -1,13 +1,16 @@
 let kittens = []
 
+// kitten.state can also be "angry" or "happy"
+
 function addKitten(event) {
     event.preventDefault()
     let form = event.target
 
     let kitten = {
+        mood: "tolerant",
         id: generateId(),
         name: form.name.value,
-
+        affection: 0.5
     }
     kittens.push(kitten)
     saveKittens()
@@ -27,6 +30,7 @@ function loadKittens() {
     if (storedKittens) {
         kittens = storedKittens
     }
+    drawKittens()
 }
 
 function drawKittens() {
@@ -34,35 +38,66 @@ function drawKittens() {
     let kittensTemplate = ""
     kittens.forEach(kitten => {
         kittensTemplate += `
-        <div class="card mt-1 mb-1">
-                <h3 class="mt-1 mb-1">${kitten.name}</h3>
-                <div class="d-flex space-between">
-                    <p>
-                    <i class="fa fa-fw fa-phone"></i>
-                    <span>${kitten.id}</span>
-                    </p>
-                    <i class="action fa fa-trash text-danger" onclick="removeContact('${kitten.id}')"></i>
+        <div class="kitten ${kitten.mood}">
+                    <i aria-hidden="true"></i>
+                    <div class="card p-2 text-center w-50">
+                        <img src="moody-logo.png" alt="kitten">
+                        <p>${kitten.name}</p>
+                        <button onclick="pet('${kitten.id}')">Pet</button>
+                    </div>
                 </div>
-            </div>
             `
     })
     kittensElement.innerHTML = kittensTemplate
 }
 
-function findKittenbyId(id) {
-
+function findKittenById(id) {
+    const kitten = kittens.find(kitten => kitten.id === id)
+    return kitten
 }
 
 function pet(id) {
+    let kitten = findKittenById(id)
+    const affection = Math.random()
+    console.log(affection)
+    kitten.affection = affection
+    console.log(kitten)
 
+    kitten = setKittenMood(kitten)
+    console.log(kitten)
+    saveKitten(kitten)
+    saveKittens()
+    drawKittens()
+}
+
+function saveKitten(kitten) {
+    // update an existing kitten in the kittens array
+    const kittenIndex = kittens.findIndex(kitten1 => kitten1.id === kitten.id)
+    kittens.splice(kittenIndex, 1, kitten)
 }
 
 function catnip(id) {
+    
+    console.log("looking for kitten with id: " + id)
+
+    let kitten = findKittenById(id);
+    kitten.affection = 1
+    kitten = setKittenMood(kitten)
+    saveKitten(kitten)
+    saveKittens()
+    drawKittens()
 
 }
 
 function setKittenMood(kitten) {
-
+    if (kitten.affection > 0.65 ) {
+        kitten.mood = "happy"
+    } else if (kitten.affection > 3.5 && kitten.affection < 6.5) {
+        kitten.mood = "tolerant"
+    } else {
+        kitten.mood = "angry"
+    }
+    return kitten
 }
 
 function clearKittens() {
@@ -71,6 +106,7 @@ function clearKittens() {
 
 function getStarted() {
     document.getElementById("welcome").remove()
+    document.getElementById("kittens").classList.remove("hidden")
 }
 
 function generateId() {
