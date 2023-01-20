@@ -77,7 +77,7 @@ function saveKitten(kitten) {
 }
 
 function catnip(id) {
-    
+
     console.log("looking for kitten with id: " + id)
 
     let kitten = findKittenById(id);
@@ -90,7 +90,7 @@ function catnip(id) {
 }
 
 function setKittenMood(kitten) {
-    if (kitten.affection > 0.65 ) {
+    if (kitten.affection > 0.65) {
         kitten.mood = "happy"
     } else if (kitten.affection > 3.5 && kitten.affection < 6.5) {
         kitten.mood = "tolerant"
@@ -100,8 +100,10 @@ function setKittenMood(kitten) {
     return kitten
 }
 
-function clearKittens() {
-
+function clearKittens(kittenId) {
+    let index = kittens.findIndex(kittens => kittens.id == kittenId)
+    kittens.splice(0,kittens.length)
+    saveKittens()
 }
 
 function getStarted() {
