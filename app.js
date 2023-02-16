@@ -80,13 +80,12 @@ function catnip(id) {
 
     console.log("looking for kitten with id: " + id)
 
-    let kitten = findKittenById(id);
+    let kitten = findKittenById(id)
     kitten.affection = 1
     kitten = setKittenMood(kitten)
     saveKitten(kitten)
     saveKittens()
     drawKittens()
-
 }
 
 function setKittenMood(kitten) {
