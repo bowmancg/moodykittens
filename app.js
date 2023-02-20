@@ -43,7 +43,8 @@ function drawKittens() {
                     <div class="card p-2 text-center w-50">
                         <img src="moody-logo.png" alt="kitten">
                         <p>${kitten.name}</p>
-                        <button onclick="pet('${kitten.id}')">Pet</button>
+                        <button onclick="pet(event)" data-id="${kitten.id}">Pet</button>
+                        <button onclick="catnip(event)" data-id="${kitten.id}">Give Catnip</button>
                     </div>
                 </div>
             `
@@ -56,7 +57,11 @@ function findKittenById(id) {
     return kitten
 }
 
-function pet(id) {
+function pet(event) {
+    event.preventDefault()
+    const target = event.target
+    let id = target.dataset.id
+
     let kitten = findKittenById(id)
     const affection = Math.random()
     console.log(affection)
@@ -76,7 +81,11 @@ function saveKitten(kitten) {
     kittens.splice(kittenIndex, 1, kitten)
 }
 
-function catnip(id) {
+function catnip(event) {
+    event.preventDefault()
+    const target = event.target
+    let id = target.dataset.id
+
 
     console.log("looking for kitten with id: " + id)
 

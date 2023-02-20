@@ -127,7 +127,6 @@
     filter: drop-shadow(var(--shadow));
   }
   
-  
   .kitten img{
     filter: drop-shadow(2px 4px 6px #1b1b1b);
     transition: all .35s ease;
